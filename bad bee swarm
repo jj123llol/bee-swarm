@@ -1,0 +1,68 @@
+getgenv().AutoClick = true
+
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({Name = "bee swarm- by jude/rev", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local Tab = Window:MakeTab({
+	Name = "stuff",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+
+Tab:AddButton({
+	Name = "Use this to claim hive,dont claim ur own",
+	Callback = function()
+local args = {
+    [1] = 2
+}
+
+game:GetService("ReplicatedStorage").Events.ClaimHive:FireServer(unpack(args))
+
+OrionLib:MakeNotification({
+	Name = "ALERT",
+	Content = "if it did not claim,its already taken. join a diff server",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+  	end    
+})
+
+Tab:AddToggle({
+	Name = "AutoClick",
+	Default = (bool),
+	Callback = function(bool)
+		getgenv().AutoClick = bool
+		print(bool)
+		if bool then
+		AutoClick()
+		end
+	end    
+    
+})
+
+function AutoClick()
+    while getgenv().AutoClick == true do
+        wait()
+game:GetService("Players").LocalPlayer.Character.Scooper.ClickEvent:FireServer()
+end
+end
+
+
+Tab:AddButton({
+	Name = "make honey--use the claim, DONT CLAIM UR OWN SPOT",
+	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-52.6887207, 4.73813152, 330.50293, -0.981198013, -5.31625162e-08, 0.193003774, -4.90535434e-08, 1, 2.60682871e-08, -0.193003774, 1.61106328e-08, -0.981198013)
+wait()
+local args = {
+    [1] = "ToggleHoneyMaking"
+}
+
+game:GetService("ReplicatedStorage").Events.PlayerHiveCommand:FireServer(unpack(args))
+
+  	end    
+})
